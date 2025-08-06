@@ -1,0 +1,381 @@
+'use client'
+
+import React, { useState } from 'react';
+
+interface FormData {
+  name: string;
+  email: string;
+  phone: string;
+  subject: string;
+  message: string;
+}
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  phone?: string;
+  subject?: string;
+  message?: string;
+}
+
+const ContactArea = () => {
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: ''
+  });
+  
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  // Validation functions
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhone = (phone: string) => {
+    // Allow various phone formats: +1234567890, (123) 456-7890, 123-456-7890, etc.
+    const phoneRegex = /^[\+]?[\s\(\)-]?[\d\s\(\)-]{10,}$/;
+    return phone === '' || phoneRegex.test(phone.replace(/\s/g, ''));
+  };
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    // Name validation
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = 'Name must be at least 2 characters';
+    }
+
+    // Email validation
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!validateEmail(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    // Phone validation (optional but must be valid if provided)
+    if (formData.phone.trim() && !validatePhone(formData.phone)) {
+      newErrors.phone = 'Please enter a valid phone number';
+    }
+
+    // Subject validation
+    if (!formData.subject.trim()) {
+      newErrors.subject = 'Subject is required';
+    } else if (formData.subject.trim().length < 3) {
+      newErrors.subject = 'Subject must be at least 3 characters';
+    }
+
+    // Message validation
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+
+    // Clear error for this field when user starts typing
+    if (errors[name as keyof FormErrors]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: undefined
+      }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Validate form before submission
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      // Option 1: Using Formspree (recommended for quick setup)
+      const response = await fetch('https://formspree.io/f/mvgqbrpo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        });
+        setErrors({});
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <>
+      <div className="cs_height_150 cs_height_lg_120"></div>
+      <style jsx>{`
+        .error-message {
+          color: #dc3545;
+          font-size: 12px;
+          margin-top: 5px;
+          display: block;
+        }
+        .cs_input_field.error {
+          border-color: #dc3545 !important;
+          box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+        }
+        .cs_field_group {
+          position: relative;
+          margin-bottom: 15px;
+        }
+        .alert {
+          padding: 12px 16px;
+          margin-bottom: 20px;
+          border-radius: 6px;
+          font-size: 14px;
+        }
+        .alert-success {
+          background-color: #d4edda;
+          color: #155724;
+          border: 1px solid #c3e6cb;
+        }
+        .alert-error {
+          background-color: #f8d7da;
+          color: #721c24;
+          border: 1px solid #f5c6cb;
+        }
+      `}</style>
+      <section>
+        <div className="container">
+          <div className="cs_contact_ms">
+            <div className="cs_contact">
+              <div className="cs_contact_text">
+                <p className="cs_contact_subtitle anim_text_upanddowns">
+                  Contact Us
+                </p>
+                <h1 className="cs_contact_title anim_text_writting">
+                  Get in Touch
+                </h1>
+              </div>
+              <div className="cs_height_80 cs_height_lg_20"></div>
+              <div className="cs_from anim_div_ShowDowns">
+                
+                {/* Status Messages */}
+                {submitStatus === 'success' && (
+                  <div className="alert alert-success mb-4 p-3 bg-green-100 text-green-700 rounded">
+                    Thank you! Your message has been sent successfully.
+                  </div>
+                )}
+                {submitStatus === 'error' && (
+                  <div className="alert alert-error mb-4 p-3 bg-red-100 text-red-700 rounded">
+                    Sorry, something went wrong. Please try again.
+                  </div>
+                )}
+
+                <form onSubmit={handleSubmit}>
+                  <div className="row">
+                    <div className="cs_field_group col">
+                      <input 
+                        className={`cs_input_field ${errors.name ? 'error' : ''}`}
+                        type="text" 
+                        id="name" 
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        placeholder="Enter your full name"
+                        required 
+                      />
+                      <label htmlFor="name" className="cs_input_label">Name</label>
+                      {errors.name && <span className="error-message">{errors.name}</span>}
+                    </div>
+                    <div className="cs_field_group col">
+                      <input 
+                        className={`cs_input_field ${errors.email ? 'error' : ''}`}
+                        type="email" 
+                        id="email" 
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        placeholder="Enter your email address"
+                        required 
+                      />
+                      <label htmlFor="email" className="cs_input_label">Email</label>
+                      {errors.email && <span className="error-message">{errors.email}</span>}
+                    </div>
+                  </div>
+                  <div className="cs_height_10 cs_height_lg_20"></div>
+                  <div className="row">
+                    <div className="cs_field_group col">
+                      <input 
+                        className={`cs_input_field ${errors.phone ? 'error' : ''}`}
+                        type="tel" 
+                        id="phone" 
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        placeholder="Enter your phone number (optional)"
+                      />
+                      <label htmlFor="phone" className="cs_input_label">Phone</label>
+                      {errors.phone && <span className="error-message">{errors.phone}</span>}
+                    </div>
+                    <div className="cs_field_group col">
+                      <input 
+                        className={`cs_input_field ${errors.subject ? 'error' : ''}`}
+                        type="text" 
+                        id="subject" 
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleInputChange}
+                        placeholder="What's this about?"
+                        required 
+                      />
+                      <label htmlFor="subject" className="cs_input_label">Subject</label>
+                      {errors.subject && <span className="error-message">{errors.subject}</span>}
+                    </div>
+                  </div>
+                  <div className="cs_height_100 cs_height_lg_60"></div>
+                  <div className="cs_field_group">
+                    <textarea 
+                      className={`cs_input_field ${errors.message ? 'error' : ''}`}
+                      id="message" 
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      placeholder="Tell us more about your project or inquiry..."
+                      rows={5}
+                      required
+                      style={{ minHeight: '120px', resize: 'vertical' }}
+                    />
+                    <label htmlFor="message" className="cs_input_label">Message</label>
+                    {errors.message && <span className="error-message">{errors.message}</span>}
+                  </div>
+                  <div className="cs_height_60 cs_height_lg_60"></div>
+                  <button 
+                    type="submit" 
+                    className="cs_btn cs_style_1 cs_type_btn"
+                    disabled={isSubmitting}
+                  >
+                    <span>{isSubmitting ? 'Sending...' : 'Send Now'}</span>
+                    <svg width="19" height="13" viewBox="0 0 19 13" fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M18.5303 7.03033C18.8232 6.73744 18.8232 6.26256 18.5303 5.96967L13.7574 1.1967C13.4645 0.903806 12.9896 0.903806 12.6967 1.1967C12.4038 1.48959 12.4038 1.96447 12.6967 2.25736L16.9393 6.5L12.6967 10.7426C12.4038 11.0355 12.4038 11.5104 12.6967 11.8033C12.9896 12.0962 13.4645 12.0962 13.7574 11.8033L18.5303 7.03033ZM0 7.25H18V5.75H0V7.25Z"
+                        fill="currentColor"></path>
+                    </svg>
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div className="cs_contact_section_2 anim_div_ShowRightSide">
+              <div className="cs_google_map cs_bg" data-src="assets/img/map_img.png">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96652.27317354927!2d-74.33557928194516!3d40.79756494697628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c3a82f1352d0dd%3A0x81d4f72c4435aab5!2sTroy+Meadows+Wetlands!5e0!3m2!1sen!2sbd!4v1563075599994!5m2!1sen!2sbd"
+                  allowFullScreen={true}></iframe>
+              </div>
+              <div className="cs_height_50 cs_height_lg_50"></div>
+              <div className="row">
+                <div className="col-md-4">
+                  <div className="cs_icon">
+                    <a href="https://www.google.com/maps" className="cs_icon_style">
+                      <i>
+                        <svg width="14" height="19" viewBox="0 0 14 19" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path d="M7 0.0195312C3.14027 0.0195312 0 3.01027 0 6.68621C0 7.78973 0.289693 8.88387 0.840408 9.85434L6.6172 17.8047C6.69411 17.9373 6.84065 18.0195 7 18.0195C7.15935 18.0195 7.30589 17.9373 7.3828 17.8047L13.1617
+                              9.85105C13.7103 8.88387 14 7.78969 14 6.68617C14 3.01027 10.8597 0.0195312 7 0.0195312ZM7 10.0195C5.07014 10.0195 3.50002 8.52418 3.50002 6.68621C3.50002 4.84824 5.07014 3.35289 7 3.35289C8.92986 3.35289 10.5 4.84824 10.5 6.68621C10.5
+                              8.52418 8.92986 10.0195 7 10.0195Z" fill="white"></path>
+                        </svg>
+                      </i>
+                    </a>
+                    <div className="cs_icon_text">
+                      <h6 className="cs_icon_title">Address</h6>
+                      <p className="cs_icon_subtitle">El-Mahalla El-Kubra 37</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="cs_icon">
+                    <a href="tel:(406) 555-0120" className="cs_icon_style">
+                      <i>
+                        <svg width="18" height="19" viewBox="0 0 18 19" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M13.6837 11.9266C13.0957 11.3461 12.3616 11.3461 11.7773 11.9266C11.3316 12.3686 10.8859 12.8105 10.4477 13.26C10.3278 13.3836 10.2267 13.4098 10.0806 13.3274C9.79225 13.1701 9.48513 13.0427 9.20797 12.8704C7.91581 12.0577 6.8334 11.0127 5.87458 9.83668C5.39891 9.2524 4.97568 8.62692 4.6798 7.92279C4.61987 7.78046 4.63111 7.68683 4.74721 7.57072C5.19292 7.14 5.62738 6.69805 6.06559 6.25609C6.67609 5.64185 6.67609 4.92273 6.06185 4.30474C5.71353 3.95268 5.3652 3.6081 5.01688 3.25604C4.65733 2.89648 4.30151 2.53318 3.93821 2.17736C3.35018 1.60432 2.61609 1.60432 2.03181 2.18111C1.58236 2.62306 1.15164 3.07626 0.694705 3.51072C0.271476 3.91148 0.0579884 4.40212 0.0130438 4.97517C-0.0581186 5.90777 0.17035 6.78794 0.492454 7.64563C1.15164 9.42095 2.15541 10.9978 3.37266 12.4435C5.01688 14.3986 6.97947 15.9454 9.27539 17.0615C10.3091 17.5634 11.3803 17.9492 12.5451 18.0129C13.3466 18.0578 14.0433 17.8556 14.6013 17.2301C14.9834 16.8031 15.4141 16.4136 15.8186 16.0053C16.4178 15.3986 16.4216 14.6645 15.8261 14.0652C15.1145 13.3499 14.3991 12.6382 13.6837 11.9266Z"
+                            fill="white"></path>
+                          <path
+                            d="M12.9672 8.93825L14.3493 8.70229C14.132 7.4326 13.5328 6.28277 12.6227 5.36889C11.6601 4.40633 10.4428 3.79957 9.10199 3.6123L8.90723 5.00184C9.9447 5.14791 10.8885 5.61609 11.6339 6.36142C12.338 7.06555 12.7987 7.95696 12.9672 8.93825Z"
+                            fill="white"></path>
+                          <path
+                            d="M15.1294 2.93344C13.5338 1.33791 11.5151 0.330398 9.28656 0.0195312L9.0918 1.40907C11.0169 1.67874 12.7623 2.55141 14.1406 3.92597C15.4477 5.23311 16.3054 6.88483 16.6163 8.70134L17.9983 8.46538C17.635 6.36047 16.6425 4.45033 15.1294 2.93344Z"
+                            fill="white"></path>
+                        </svg>
+                      </i>
+                    </a>
+                    <div className="cs_icon_text">
+                      <h6 className="cs_icon_title">Phone</h6>
+                      <p className="cs_icon_subtitle">(406) 555-0120</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="cs_icon">
+                    <a href="mailto:info@zenexagency.com" className="cs_icon_style">
+                      <i>
+                        <svg width="18" height="14" viewBox="0 0 18 14" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M10.5043 8.78757C10.0565 9.08612 9.53631 9.24394 9 9.24394C8.46373 9.24394 7.94356 9.08612 7.49574 8.78757L0.119848 3.87016C0.0789258 3.84288 0.0390586 3.81444 0 3.78519V11.8429C0 12.7667 0.749707 13.4999 1.65702 13.4999H16.3429C17.2668 13.4999 18 12.7502 18 11.8429V3.78516C17.9608 3.81448 17.9209 3.84299 17.8799 3.87031L10.5043 8.78757Z"
+                            fill="white"></path>
+                          <path
+                            d="M0.704883 2.99347L8.08077 7.91091C8.35998 8.09707 8.67997 8.19012 8.99996 8.19012C9.31999 8.19012 9.64002 8.09703 9.91923 7.91091L17.2951 2.99347C17.7365 2.69939 18 2.2072 18 1.67599C18 0.762594 17.2569 0.0195312 16.3435 0.0195312H1.65646C0.743098 0.0195664 0 0.762629 0 1.67687C0 2.2072 0.263531 2.69939 0.704883 2.99347Z"
+                            fill="white"></path>
+                        </svg>
+                      </i>
+                    </a>
+                    <div className="cs_icon_text">
+                      <h6 className="cs_icon_title">Email</h6>
+                      <p className="cs_icon_subtitle">info@zenexagency.com</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div className="cs_height_150 cs_height_lg_60"></div>
+    </>
+  );
+};
+
+export default ContactArea;
