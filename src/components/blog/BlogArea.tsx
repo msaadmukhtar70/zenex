@@ -1,84 +1,7 @@
-
-
 import React from 'react';
 import Link from 'next/link';
-import Image, { StaticImageData } from 'next/image';
-
-import blog_img_1 from "@/assets/img/post_1.jpg";
-import blog_img_2 from "@/assets/img/post_2.jpg";
-import blog_img_3 from "@/assets/img/post_3.jpg";
-import blog_img_4 from "@/assets/img/post_4.jpg";
-import blog_img_5 from "@/assets/img/post_5.jpg";
-import blog_img_6 from "@/assets/img/post_6.jpg";
-import blog_img_7 from "@/assets/img/post_7.jpg";
-import blog_img_8 from "@/assets/img/post_8.jpg";
-import blog_img_9 from "@/assets/img/post_9.jpg";
-
-
-interface DataType {
-  id: number;
-  img: StaticImageData;
-  title: string;
-  des: string;
-}
-
-const blog_data: DataType[] = [
-  {
-    id: 1,
-    img: blog_img_1,
-    title: `Reasons Business Needs a Agency`,
-    des: `The art of creative thinking could be a blog that explores the various ways in which people.`,
-  },
-  {
-    id: 2,
-    img: blog_img_2,
-    title: `Reasons Business Needs a Agency`,
-    des: `The art of creative thinking could be a blog that explores the various ways in which people.`,
-  },
-  {
-    id: 3,
-    img: blog_img_3,
-    title: `Reasons Business Needs a Agency`,
-    des: `The art of creative thinking could be a blog that explores the various ways in which people.`,
-  },
-  {
-    id: 4,
-    img: blog_img_4,
-    title: `Reasons Business Needs a Agency`,
-    des: `The art of creative thinking could be a blog that explores the various ways in which people.`,
-  },
-  {
-    id: 5,
-    img: blog_img_5,
-    title: `Reasons Business Needs a Agency`,
-    des: `The art of creative thinking could be a blog that explores the various ways in which people.`,
-  },
-  {
-    id: 6,
-    img: blog_img_6,
-    title: `Reasons Business Needs a Agency`,
-    des: `The art of creative thinking could be a blog that explores the various ways in which people.`,
-  },
-  {
-    id: 7,
-    img: blog_img_7,
-    title: `Reasons Business Needs a Agency`,
-    des: `The art of creative thinking could be a blog that explores the various ways in which people.`,
-  },
-  {
-    id: 8,
-    img: blog_img_8,
-    title: `Reasons Business Needs a Agency`,
-    des: `The art of creative thinking could be a blog that explores the various ways in which people.`,
-  },
-  {
-    id: 9,
-    img: blog_img_9,
-    title: `Reasons Business Needs a Agency`,
-    des: `The art of creative thinking could be a blog that explores the various ways in which people.`,
-  },
-]
-
+import Image from 'next/image';
+import blog_data from '@/data/blog_data'; // Import from data file
 
 const BlogArea = () => {
   return (
@@ -104,11 +27,12 @@ const BlogArea = () => {
         <div className="container">
           <div className="row">
             {blog_data.map((item, i) => (
-              <div key={i} className={`col-md-4 ${item.id === 2 ? 'mt-0 mt-md-5' : ''} ${item.id === 5 ? 'mt-0 mt-md-5' : ''} ${item.id === 8 ? 'mt-0 mt-md-5' : ''}`}>
+              <div key={item.id} className={`col-md-4 ${item.id === 2 ? 'mt-0 mt-md-5' : ''} ${item.id === 5 ? 'mt-0 mt-md-5' : ''} ${item.id === 8 ? 'mt-0 mt-md-5' : ''}`}>
                 <div className="anim_div_ShowDowns">
-                  <Link href="/blog-details" className="cs_blog cs_style_1">
+                  {/* Updated link to use dynamic slug */}
+                  <Link href={`/blog-details/${item.slug}`} className="cs_blog cs_style_1">
                     <div>
-                      <Image src={item.img} alt="post_1" />
+                      <Image src={item.img} alt={item.title} />
                     </div>
                     <div className="cs_blog_info">
                       <h6 className="cs_blog_title">
@@ -117,12 +41,18 @@ const BlogArea = () => {
                       <p className="cs_blog_subtitle">
                         {item.des}
                       </p>
+                      {/* Optional: Add date and author */}
+                      {(item.date || item.author) && (
+                        <div className="cs_blog_meta">
+                          {item.date && <span className="cs_blog_date">{item.date}</span>}
+                          {item.author && <span className="cs_blog_author"> By {item.author}</span>}
+                        </div>
+                      )}
                     </div>
                   </Link>
                 </div>
               </div>
             ))}
-
           </div>
           <div className="cs_height_100 cs_height_lg_60"></div>
           <div>

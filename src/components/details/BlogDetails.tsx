@@ -1,58 +1,48 @@
-
 'use client'
 
 import React from 'react';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import BlogHomeOne from '../blog/BlogHomeOne';
 
 import blog_detaisl_img_1 from "@/assets/img/blog_detals_banner.jpg";
-
 import blog_details_1 from "@/assets/img/blog_details_1.jpg";
 import blog_details_2 from "@/assets/img/blog_details_2.jpg";
 import blog_details_3 from "@/assets/img/blog_details_3.jpg";
 import blog_details_4 from "@/assets/img/blog_details_4.jpg";
 
-
-interface DataType {
+// Define the blog type to match your updated data structure
+interface BlogType {
+  id: number;
+  slug: string;
+  img: StaticImageData;
   title: string;
-  info: {
-    title: string;
-    des: string;
-  }[];
-  title_2: string;
-  des_1: string;
-  features: string[];
-  des_2: string;
-  qute: string;
-  writer: string;
-  des_3: string;
+  des: string;
+  content: {
+    subtitle: string;
+    intro: string;
+    keyPoints: string[];
+    mainContent: string;
+    quote: string;
+    conclusion: string;
+  };
+  author: string;
+  date: string;
+  readTime: string;
+  tags: string[];
 }
 
-const blog_details_content: DataType = {
-  title: `How a Creative Agency Can Help Your Business Development?`,
-  info: [
-    { title: `Posted By`, des: `Andrew Nikulas` },
-    { title: `Published Date`, des: `02 - Dec - 2023` },
-    { title: `Viewes`, des: `2 Min Read` },
-  ],
-  title_2: `How a Creative Agency Can Help?`,
-  des_1: `Welcome to our digital agency! We specialize in helping businesses like yours succeed online. From website design and development to digital marketing and adver tising, we have the tools and expertise to elevate your online presence. Welcome to our digital agency! We specialize in helping businesses like yours online. From website design and development to digital marketing and advertising, we have the tools and expertise to elevate your online presence. Welcome to our digital agency! We specialize in helping businesses like yours succeed online.`,
-  features: [
-    `Design Welcome to our digital agency!`,
-    `Dev online. From website design Implementation world of digital.`,
-    `Implementation evolving world of digital Design Welcome to our digital agency!`,
-    `Launch growth and reach your goals. Implementation evolving world of digital.`,
-  ],
-  des_2: `We specialize in helping businesses like yours succeed online. From website design and development to digital marketing and adver tising, we have the tools and expertise to elevate your online presence. Welcome to our digital agency! We specialize in helping businesses like yours online. From website design and development to digital marketing and advertising, we have the tools and expertise to elevate your online presence.`,
-  qute: `“Welcome to our digital agency! We specialize in helping businesses like yours succeed online. From website design and development to digital marketing and adver tising, we have the to ols and expertise to elevate your online presence. Welcome to our digital agency Welcome to our digital agency”`,
-  writer: `Andrew Jackson`,
-  des_3: `Welcome to our digital agency! We specialize in helping businesses like yours succeed online. From website design and development to digital marketing and adver tising, we have the tools and expertise to elevate your online presence.`,
-
+interface BlogDetailsProps {
+  blog: BlogType;
 }
 
-const { title, info, title_2, des_1, features, des_2, qute, writer, des_3 } = blog_details_content
+const BlogDetails: React.FC<BlogDetailsProps> = ({ blog }) => {
+  // Create info array from blog data
+  const info = [
+    { title: `Posted By`, des: blog.author },
+    { title: `Published Date`, des: blog.date },
+    { title: `Read Time`, des: blog.readTime },
+  ];
 
-const BlogDetails = () => {
   return (
     <>
       <div className="cs_height_219 cs_height_lg_120"></div>
@@ -61,7 +51,7 @@ const BlogDetails = () => {
         <div className="cs_section_heading cs_style_1">
           <div className="cs_section_heading_text">
             <h2 className="cs_section_title anim_word_writting">
-              {title}
+              {blog.title}
             </h2>
           </div>
         </div>
@@ -91,27 +81,27 @@ const BlogDetails = () => {
 
       <div className="cs_height_65 cs_height_lg_60"></div>
 
-
       <section>
         <div className="container">
           <div className="cs_portfolio_details">
             <div className="reveal">
-              <Image src={blog_detaisl_img_1} alt="blog_detals_banner" />
+              {/* Use blog's main image */}
+              <Image src={blog.img} alt={blog.title} />
             </div>
             <div className="cs_height_100 cs_height_lg_60"></div>
             <div className="cs_img_show_text cs_text_style_1 anim_div_ShowDowns">
               <h4 className="cs_heading_text anim_heading_title">
-                {title_2}
+                {blog.content.subtitle}
               </h4>
               <p className="cs_text_style_body">
-                {des_1}
+                {blog.content.intro}
               </p>
             </div>
             <div className="cs_ul_ml anim_div_ShowDowns">
               <ul>
-                {features.map((item, i) => (
+                {blog.content.keyPoints.map((point, i) => (
                   <li key={i}>
-                    {item}
+                    {point}
                   </li>
                 ))}
               </ul>
@@ -119,14 +109,12 @@ const BlogDetails = () => {
             <div className="cs_height_25"></div>
             <div className="cs_blog_detail_text_2 anim_div_ShowDowns">
               <p className="cs_text_style_body">
-                {des_2}
+                {blog.content.mainContent}
               </p>
             </div>
           </div>
         </div>
       </section>
-
-
 
       <div className="container">
         <div className="anim_div_ShowDowns">
@@ -135,17 +123,15 @@ const BlogDetails = () => {
             <div className="cs_height_40 cs_height_lg_40"></div>
             <div className="anim_div_ShowDowns">
               <p className="cs_andrew_jackson_text_body cs_font_26">
-                {qute}
+                "{blog.content.quote}"
               </p>
             </div>
-            <p className="cs_footer_text cs_color_1">{writer}</p>
+            <p className="cs_footer_text cs_color_1">{blog.author}</p>
             <div className="cs_height_40 cs_height_lg_40"></div>
             <div className="cs_hr_design"></div>
           </div>
         </div>
       </div>
-
-
 
       <div className="container">
         <div className="cs_img_box cs_style_1">
@@ -169,13 +155,29 @@ const BlogDetails = () => {
         </div>
         <div className="cs_height_50 cs_height_lg_50"></div>
         <p className="anim_div_ShowDowns">
-          {des_3}
+          {blog.content.conclusion}
         </p>
       </div>
 
       <div className="cs_height_100 cs_height_lg_50"></div>
 
-
+      {/* Tags Section */}
+      {blog.tags && blog.tags.length > 0 && (
+        <div className="container">
+          <div className="cs_blog_tags_section anim_div_ShowDowns">
+            <h6 className="m-0">TAGS:</h6>
+            <div className="cs_blog_tags">
+              {blog.tags.map((tag, index) => (
+                <span key={index} className="cs_tag_item">
+                  {tag}
+                  {index < blog.tags.length - 1 && ', '}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="cs_height_50 cs_height_lg_30"></div>
+        </div>
+      )}
 
       <div className="container">
         <div className="row">
@@ -184,13 +186,13 @@ const BlogDetails = () => {
             <div>
               <div className="cs_share_btn_g">
                 <div className="col cs_share_btn cs_center">
-                  <a target='_blank' href="https://twitter.com/">Twitter</a>
+                  <a target='_blank' href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(blog.title)}&url=${encodeURIComponent(window.location.href)}`}>Twitter</a>
                 </div>
                 <div className="col cs_share_btn cs_center">
-                  <a target='_blank' href="https://www.facebook.com/">Facebook</a>
+                  <a target='_blank' href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}>Facebook</a>
                 </div>
                 <div className="col cs_share_btn cs_center">
-                  <a target='_blank' href="https://www.linkedin.com/">Linkedin</a>
+                  <a target='_blank' href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}>Linkedin</a>
                 </div>
                 <div className="col cs_share_btn cs_center">
                   <a target='_blank' href="https://dribbble.com/">Dribbble</a>
@@ -206,9 +208,7 @@ const BlogDetails = () => {
         <div className="cs_hr_design anim_div_ShowDowns"></div>
       </div>
 
-
       <div className="cs_height_100 cs_height_lg_50"></div>
-
 
       <section>
         <div className="container">
@@ -219,7 +219,7 @@ const BlogDetails = () => {
                   <h4 className="cs_m0">Comment (0)</h4>
                   <div className="cs_height_30 cs_height_lg_30"></div>
                   <p className="cs_m0">
-                    No Comment Yet! Vixan post comment box is empty!
+                    No Comments Yet! Be the first to share your thoughts about "{blog.title}".
                   </p>
                   <div className="cs_height_30 cs_height_lg_30"></div>
                   <h4 className="cs_m0">Post Your Comment</h4>
@@ -263,9 +263,7 @@ const BlogDetails = () => {
 
       <div className="cs_height_150 cs_height_lg_60"></div>
 
-
       <BlogHomeOne style_3={true} />
-
     </>
   );
 };
