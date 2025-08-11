@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import BlogHomeOne from '../blog/BlogHomeOne';
 
@@ -36,6 +36,15 @@ interface BlogDetailsProps {
 }
 
 const BlogDetails: React.FC<BlogDetailsProps> = ({ blog }) => {
+  const [currentUrl, setCurrentUrl] = useState('');
+
+  // Set current URL only on client side
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setCurrentUrl(window.location.href);
+    }
+  }, []);
+
   // Create info array from blog data
   const info = [
     { title: `Posted By`, des: blog.author },
@@ -186,13 +195,31 @@ const BlogDetails: React.FC<BlogDetailsProps> = ({ blog }) => {
             <div>
               <div className="cs_share_btn_g">
                 <div className="col cs_share_btn cs_center">
-                  <a target='_blank' href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(blog.title)}&url=${encodeURIComponent(window.location.href)}`}>Twitter</a>
+                  <a 
+                    target='_blank' 
+                    href={currentUrl ? `https://twitter.com/intent/tweet?text=${encodeURIComponent(blog.title)}&url=${encodeURIComponent(currentUrl)}` : '#'}
+                    onClick={!currentUrl ? (e) => e.preventDefault() : undefined}
+                  >
+                    Twitter
+                  </a>
                 </div>
                 <div className="col cs_share_btn cs_center">
-                  <a target='_blank' href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}>Facebook</a>
+                  <a 
+                    target='_blank' 
+                    href={currentUrl ? `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}` : '#'}
+                    onClick={!currentUrl ? (e) => e.preventDefault() : undefined}
+                  >
+                    Facebook
+                  </a>
                 </div>
                 <div className="col cs_share_btn cs_center">
-                  <a target='_blank' href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}>Linkedin</a>
+                  <a 
+                    target='_blank' 
+                    href={currentUrl ? `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}` : '#'}
+                    onClick={!currentUrl ? (e) => e.preventDefault() : undefined}
+                  >
+                    Linkedin
+                  </a>
                 </div>
                 <div className="col cs_share_btn cs_center">
                   <a target='_blank' href="https://dribbble.com/">Dribbble</a>
