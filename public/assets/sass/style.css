@@ -6685,3 +6685,24 @@ label {
     margin-top: 0px;
   }
 }/*# sourceMappingURL=style.css.map */
+
+html, body {
+  /* Don’t trap viewport height; allow natural page scroll */
+  min-height: 100%;
+}
+
+section, .container, .row {
+  overflow: visible !important; /* prevent nested scroll traps */
+}
+
+img, picture, video, canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* If your theme uses a menu-open class that locks scroll, ensure body can still scroll */
+body.menu-open,
+body.overflow-hidden {
+  overflow: auto !important;
+}
