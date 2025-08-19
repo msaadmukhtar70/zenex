@@ -15,9 +15,9 @@ interface DataType {
 const hero_slider: DataType[] = [
   {
     img: `/assets/img/hero_img_1.jpg`,
-    sub_title: "Welcome to Zenex",
+    sub_title: "Welcome to Devibi",
     title: "Smart Digital Solutions to Help You Build, Launch & Scale",
-    des: `At Zenex, we empower startups, SaaS platforms, and growing businesses to thrive in the digital age. Whether you're launching a new product, refreshing your brand, or scaling your online presence — we provide full-service design, development, and marketing solutions tailored to your goals. Let's turn your vision into a high-performing digital experience.`
+    des: `At Devibi, we empower startups, SaaS platforms, and growing businesses to thrive in the digital age. Whether you're launching a new product, refreshing your brand, or scaling your online presence — we provide full-service design, development, and marketing solutions tailored to your goals. Let's turn your vision into a high-performing digital experience.`
  },
   // {
   //   img: `/assets/img/hero_img_1.jpg`,

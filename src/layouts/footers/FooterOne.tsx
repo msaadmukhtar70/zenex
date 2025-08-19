@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import footer_logo from "@/assets/img/zenexlogoblack.png";
+import footer_logo from "@/assets/img/Devibilogoblack.png";
 import { CopyRight, SocialLinks } from '@/components/common/SocialLinks';
 
 interface DataType {
@@ -17,10 +17,10 @@ interface DataType {
 }
 
 const footer_data: DataType = {
-  email: `info@zenexagency.com`,
+  email: `info@devibi.com`,
   phone: `+44 7513671716`,
   location: `Craigavon Northern Ireland BT67 9AU`,
-  footer_info: `At Zenex, we empower startups, SaaS platforms, and growing businesses to thrive in the digital age. Whether you're launching a new product, refreshing your brand, or scaling your online presence — we provide full-service design, development, and marketing solutions tailored to your goals. Let's turn your vision into a high-performing digital experience.`,
+  footer_info: `At Devibi, we empower startups, SaaS platforms, and growing businesses to thrive in the digital age. Whether you're launching a new product, refreshing your brand, or scaling your online presence — we provide full-service design, development, and marketing solutions tailored to your goals. Let's turn your vision into a high-performing digital experience.`,
   links: [
     { title: `HOME`, link: "/" },
     { title: `ABOUT`, link: "/about" },

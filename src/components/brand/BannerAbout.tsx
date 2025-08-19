@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import logo from '@/assets/img/zenexlogowhite.png';
+import logo from '@/assets/img/Devibilogowhite.png';
 
 const BannerAbout = () => {
   return (
@@ -24,7 +24,7 @@ const BannerAbout = () => {
                   <g fontSize="22.1px">
                     <text textAnchor="start">
                       <textPath className="coloring" href="#textPath" startOffset="0%">
-                        Zenex Digital Agency . Zenex Digital Agency . &nbsp;
+                        Devibi Digital Agency . Devibi Digital Agency . &nbsp;
                       </textPath>
                     </text>
                   </g>

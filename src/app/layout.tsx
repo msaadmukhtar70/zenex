@@ -15,7 +15,7 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;900&family=Kanit:wght@400;500;600;700&display=swap"
         />
-        <title>Zenex - Digital Creative Agency</title>
+        <title>Devibi - Digital Creative Agency</title>
       </head>
 
       <body>{children}</body>

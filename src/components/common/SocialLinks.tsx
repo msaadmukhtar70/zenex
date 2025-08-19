@@ -10,22 +10,22 @@ interface HDataType {
 const hero_link_home_three: HDataType[] = [
   {
     id: 1,
-    link: "https://www.facebook.com/zenexagency",
+    link: "https://www.facebook.com/Devibi",
     title: "Facebook",
   },
   {
     id: 2,
-    link: "https://www.linkedin.com/in/zenexagency",
+    link: "https://www.linkedin.com/in/Devibi",
     title: "Linkedin",
   },
   {
     id: 3,
-    link: "https://www.instagram.com/zenexagency",
+    link: "https://www.instagram.com/Devibi",
     title: "Instagram",
   },
   {
     id: 4,
-    link: "https://www.twitter.com/zenexagency",
+    link: "https://www.twitter.com/Devibi",
     title: "Twitter",
   },
   {

@@ -16,7 +16,7 @@ interface DataType {
 const about_content: DataType = {
   subtitle: "Our Agency Story",
 title: "Pushing the Boundaries of Modern Design, Development & Digital Growth",
-des: "At Zenex, we started with a simple goal: to bridge the gap between bold ideas and real execution. In a crowded digital space, we saw too many businesses struggling with fragmented solutions — one team for design, another for development, and someone else entirely for marketing. We knew there had to be a better way. So we built an agency that brings it all together — creative design, custom development, smart automation, and results-driven marketing — all under one roof.",
+des: "At Devibi, we started with a simple goal: to bridge the gap between bold ideas and real execution. In a crowded digital space, we saw too many businesses struggling with fragmented solutions — one team for design, another for development, and someone else entirely for marketing. We knew there had to be a better way. So we built an agency that brings it all together — creative design, custom development, smart automation, and results-driven marketing — all under one roof.",
 des2: "What makes us different isn’t just what we do, but how we do it. We partner with startups, SaaS founders, and growing brands to understand their vision from the inside out. Then, we design digital products that are not only beautiful, but scalable and performance-ready. Whether you're building your first MVP, rebranding your business, or looking to automate workflows with AI, our team is here to help you grow with clarity, speed, and purpose."
 }
 const { subtitle, title, des, des2 } = about_content

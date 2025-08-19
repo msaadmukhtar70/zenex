@@ -21,7 +21,7 @@ const about_slider: DataType[] = [
     img: "/assets/img/about_img.jpg",
     sub_title: "How We Work",
     title: "Strategy-Driven, Design-Led, Built to Scale",
-    des: "At Zenex, we combine thoughtful strategy with bold design and modern tech. Every project starts with your goals—and ends with measurable results. No fluff, just smart digital execution tailored to your business."
+    des: "At Devibi, we combine thoughtful strategy with bold design and modern tech. Every project starts with your goals—and ends with measurable results. No fluff, just smart digital execution tailored to your business."
   },
   {
     img: "/assets/img/about_img.jpg",
