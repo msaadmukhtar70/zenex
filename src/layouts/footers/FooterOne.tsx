@@ -17,7 +17,7 @@ interface DataType {
 }
 
 const footer_data: DataType = {
-  email: `info@devibi.com`,
+  email: `hello@devibi.com`,
   phone: `+44 7513671716`,
   location: `Craigavon Northern Ireland BT67 9AU`,
   footer_info: `At Devibi, we empower startups, SaaS platforms, and growing businesses to thrive in the digital age. Whether you're launching a new product, refreshing your brand, or scaling your online presence — we provide full-service design, development, and marketing solutions tailored to your goals. Let's turn your vision into a high-performing digital experience.`,

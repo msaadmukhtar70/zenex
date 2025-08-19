@@ -272,7 +272,7 @@ const HeaderOne = () => {
 									<hr className="mt-2 me-5 mb-2" />
 									<h4>
 										<a href="mailto:info@email.com" className="cs_primary_font cs_text_btn"><span
-											className="cs_black">info@Devibiagency.com</span></a>
+											className="cs_black">hello@devibi.com</span></a>
 									</h4>
 								</div>
 							</div>

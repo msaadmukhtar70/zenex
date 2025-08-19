@@ -31,44 +31,44 @@ const menu_data: DataType[] = [
     link: '/about',
     has_dropdown: false
   },
+  // {
+  //   id: 3,
+  //   title: "Team",
+  //   link: "/team",
+  //   has_dropdown: false
+  // },
   {
     id: 3,
-    title: "Team",
-    link: "/team",
-    has_dropdown: false
-  },
-  {
-    id: 4,
     title: "Services",
     link: "/service",
     has_dropdown: false
   },
   {
-    id: 5,
+    id: 4,
     title: "Portfolio",
     link: "/portfolio",
-    has_dropdown: true,
-    sub_menu: [
-      {
-        id: 1,
-        title: "Portfolio",
-        link: "/portfolio",
-      },
-      {
-        id: 2,
-        title: "Portfolio Details",
-        link: "/portfolio-details",
-      }
-    ]
+    has_dropdown: false,
+    // sub_menu: [
+    //   {
+    //     id: 1,
+    //     title: "Portfolio",
+    //     link: "/portfolio",
+    //   },
+    //   {
+    //     id: 2,
+    //     title: "Portfolio Details",
+    //     link: "/portfolio-details",
+    //   }
+    // ]
   },
   {
-    id: 6,
+    id: 5,
     title: "Blog",
     link: "/blog",
     has_dropdown: false
   },
   {
-    id: 7,
+    id: 6,
     title: "Contact",
     link: "/contact",
     has_dropdown: false,
