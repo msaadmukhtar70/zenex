@@ -3319,9 +3319,9 @@ label {
 .cs_site_branding {
   display: inline-block;
 }
-.cs_site_branding img {
+/* .cs_site_branding img {
   max-height: 45px;
-}
+} */
 
 @media screen and (min-width: 1200px) {
   .cs_nav_list.cs_color_1 {
@@ -3750,9 +3750,9 @@ label {
   .cs_hamburger_wrap .cs_hamburger {
     margin-right: 0;
   }
-  .cs_site_branding img {
+  /* .cs_site_branding img {
     max-height: 32px;
-  }
+  } */
   .cs_site_header.cs_style1 .cs_btn span {
     display: none;
   }
@@ -6685,3 +6685,24 @@ label {
     margin-top: 0px;
   }
 }/*# sourceMappingURL=style.css.map */
+
+html, body {
+  /* Don’t trap viewport height; allow natural page scroll */
+  min-height: 100%;
+}
+
+section, .container, .row {
+  overflow: visible !important; /* prevent nested scroll traps */
+}
+
+img, picture, video, canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* If your theme uses a menu-open class that locks scroll, ensure body can still scroll */
+body.menu-open,
+body.overflow-hidden {
+  overflow: auto !important;
+}
