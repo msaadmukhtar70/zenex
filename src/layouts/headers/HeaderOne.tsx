@@ -7,8 +7,8 @@ import React, { useEffect, useState } from "react";
 
 
 import Image from "next/image";
-import logo from "@/assets/img/zenexlogowhite.png";
-import Logo_white from "@/assets/img/zenexlogoblack.png";
+import logo from "@/assets/img/Devibilogowhite.svg";
+import Logo_white from "@/assets/img/Devibilogoblack.svg";
 
 
 interface DataType {
@@ -171,10 +171,10 @@ const HeaderOne = () => {
 						<div className="cs_main_header_in">
 							<div className="cs_main_header_left">
 								<Link className="cs_site_branding logo-dark" href="/">
-									<Image src={logo} alt="Logo" width={150} height={100} />
+									<Image src={logo} alt="Logo" width={200} height={100} />
 								</Link>
 								<Link className="cs_site_branding logo-white" href="/">
-									<Image src={Logo_white} alt="Logo" width={150} height={100}/>
+									<Image src={Logo_white} alt="Logo" width={200} height={100}/>
 								</Link>
 							</div>
 							<div className="cs_main_header_right">
@@ -204,7 +204,7 @@ const HeaderOne = () => {
 				<div className="cs_side_header_overlay"></div>
 				<div className="cs_side_header_in">
 					<Link className="cs_site_branding" href="/">
-						<Image src={Logo_white} alt="Logo" width={150} height={100}/>
+						<Image src={Logo_white} alt="Logo" width={200} height={100}/>
 					</Link>
 					<div className="row align-items-end">
 						<div className="col-7">
@@ -272,7 +272,7 @@ const HeaderOne = () => {
 									<hr className="mt-2 me-5 mb-2" />
 									<h4>
 										<a href="mailto:info@email.com" className="cs_primary_font cs_text_btn"><span
-											className="cs_black">info@zenexagency.com</span></a>
+											className="cs_black">info@Devibiagency.com</span></a>
 									</h4>
 								</div>
 							</div>

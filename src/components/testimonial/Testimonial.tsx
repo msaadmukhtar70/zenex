@@ -19,13 +19,13 @@ const testimonial_data: DataType[] = [
     img: avatar_img,
     name: "Delores Olivo",
     location: "From UK",
-    des: "“Zenex transformed our outdated website into a sleek, fast, and mobile-friendly platform. Their design and development team really understood our audience.”"
+    des: "“Devibi transformed our outdated website into a sleek, fast, and mobile-friendly platform. Their design and development team really understood our audience.”"
   },
   {
     img: avatar_img,
     name: "Michael Jennings",
     location: "From USA",
-    des: "“We partnered with Zenex to build our SaaS MVP, and they delivered beyond expectations. Great code quality, great communication, and an on-time launch.”"
+    des: "“We partnered with Devibi to build our SaaS MVP, and they delivered beyond expectations. Great code quality, great communication, and an on-time launch.”"
   },
   {
     img: avatar_img,
@@ -37,7 +37,7 @@ const testimonial_data: DataType[] = [
     img: avatar_img,
     name: "Ravi Shah",
     location: "From India",
-    des: "“Zenex helped us automate a major part of our customer support using a custom AI chatbot. The results were instant — faster responses, happier clients.”"
+    des: "“Devibi helped us automate a major part of our customer support using a custom AI chatbot. The results were instant — faster responses, happier clients.”"
   },
   {
     img: avatar_img,
@@ -61,7 +61,7 @@ const testimonial_data: DataType[] = [
     img: avatar_img,
     name: "Connor Walsh",
     location: "From Canada",
-    des: "“Zenex felt like an extension of our own team. Collaborative, sharp, and invested in our success — exactly what we needed to scale fast.”"
+    des: "“Devibi felt like an extension of our own team. Collaborative, sharp, and invested in our success — exactly what we needed to scale fast.”"
   }
 ]
 
@@ -108,7 +108,7 @@ const Testimonial = ({ style_service }: any) => {
             <div className="col-lg-7 offset-lg-1">
               <div className={`cs_testimonial ${style_service ? 'cs_style_2' : 'cs_style_1 cs_color_1'}`}>
                 <h2 className="cs_testimonial_title">
-                  What Our Clients Say About Working With Zenex
+                  What Our Clients Say About Working With Devibi
                 </h2>
                 <Swiper
                   loop={true}
