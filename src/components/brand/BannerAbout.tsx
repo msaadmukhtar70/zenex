@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import logo from '@/assets/img/Devibilogowhite.png';
+import logo from '@/assets/img/Devibilogowhite.svg';
 
 const BannerAbout = () => {
   return (
